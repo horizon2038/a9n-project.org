@@ -4,6 +4,13 @@ export type Locale = "ja" | "en";
 
 export const siteUrl = "https://a9n-project.org";
 
+export const socialImage = {
+  url: "/ogp.png",
+  width: 1200,
+  height: 630,
+  alt: "A9N Project",
+} as const;
+
 const navigationItems = [
   { path: "/about", label: "About" },
   { path: "/projects", label: "Projects" },
@@ -49,6 +56,13 @@ export function createPageMetadata(
       description,
       url: locale === "ja" ? jaPath : enPath,
       locale: locale === "ja" ? "ja_JP" : "en_US",
+      images: [socialImage],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [socialImage.url],
     },
   };
 }

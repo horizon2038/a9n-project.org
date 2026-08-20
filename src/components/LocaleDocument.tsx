@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { getTranslations } from "@/lib/i18n";
-import { localePath, siteUrl, type Locale } from "@/lib/site";
+import { localePath, siteUrl, socialImage, type Locale } from "@/lib/site";
 
 export function getRootMetadata(locale: Locale): Metadata {
   return {
@@ -16,9 +16,11 @@ export function getRootMetadata(locale: Locale): Metadata {
     openGraph: {
       siteName: "A9N Project",
       type: "website",
+      images: [socialImage],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
+      images: [socialImage.url],
     },
     alternates: {
       types: {

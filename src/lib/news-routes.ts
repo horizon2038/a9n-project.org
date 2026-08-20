@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getPostData, getSortedPostsData, POSTS_PER_PAGE } from "@/lib/posts";
 import { buildRss } from "@/lib/rss";
-import { localePath, siteUrl, type Locale } from "@/lib/site";
+import { localePath, siteUrl, socialImage, type Locale } from "@/lib/site";
 
 export type ArticleParams = { params: Promise<{ slug: string[] }> };
 
@@ -31,6 +31,13 @@ export async function getArticleMetadata(locale: Locale, { params }: ArticlePara
       url: `${siteUrl}${canonical}`,
       publishedTime: post.date.toISOString(),
       tags: post.tags,
+      images: [socialImage],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.summary,
+      images: [socialImage.url],
     },
   };
 }
