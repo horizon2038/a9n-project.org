@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "check:links": "node scripts/check-static-links.mjs",
+    "check:locales": "node scripts/check-static-locales.mjs",
     "start": "next start",
     "lint": "eslint"
   },

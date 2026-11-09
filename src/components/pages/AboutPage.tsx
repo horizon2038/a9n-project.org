@@ -1,52 +1,57 @@
-import Link from "next/link";
+import Image from "next/image";
 import { getTranslations } from "@/lib/i18n";
-import { localePath, type Locale } from "@/lib/site";
+import { aboutReferences } from "@/lib/about-references";
+import type { Locale } from "@/lib/site";
 
 export function AboutPage({ locale }: { locale: Locale }) {
   const t = getTranslations(locale).about;
 
   return (
-    <main className="page-main">
+    <main id="main-content" tabIndex={-1} className="page-main">
       <header className="page-header">
         <div>
-          <p className="page-section-name">About</p>
           <h1>{t.title}</h1>
-          <p>{t.introduction}</p>
         </div>
       </header>
 
-      <section className="document-section">
-        <h2>{t.scopeTitle}</h2>
-        {t.scope.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-      </section>
-
-      <section className="document-section">
-        <h2>{t.relationTitle}</h2>
-        <p>{t.relationIntroduction}</p>
-        <div className="definition-table">
-          {t.stages.map(([title, description]) => (
-            <div key={title}><h3>{title}</h3><p>{description}</p></div>
+      {t.sections.map((section) => (
+        <section className="document-section about-section" key={section.id} aria-labelledby={section.id}>
+          <h2 id={section.id}>{section.title}</h2>
+          {section.paragraphs.map((paragraph) => (
+            <p key={paragraph.text}>
+              {paragraph.text}
+              {paragraph.citations.map((id) => (
+                <sup className="citation" key={id}>
+                  <a href={`#ref-${id}`} role="doc-biblioref" aria-label={`${t.referencesTitle} ${id}`}>[{id}]</a>
+                </sup>
+              ))}
+            </p>
           ))}
-        </div>
-        <Link className="inline-action" href={localePath(locale, "/projects")}>
-          {t.projectsLink}
-        </Link>
-      </section>
-
-      <section className="document-section">
-        <h2>{t.kernelTitle}</h2>
-        {t.kernel.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-        <Link className="inline-action" href={localePath(locale, "/documents")}>
-          {t.documentsLink}
-        </Link>
-      </section>
+          {section.id === "microkernel" && (
+            <figure className="microkernel-diagram">
+              <Image
+                src="/about/microkernel-architecture.png"
+                width={1089}
+                height={846}
+                sizes="(max-width: 680px) calc(100vw - 32px), 780px"
+                alt={t.microkernelDiagram.alt}
+              />
+              <figcaption>
+                <span>{t.microkernelDiagram.caption}</span>
+                <a href="/about/microkernel-architecture.png" target="_blank" rel="noreferrer">
+                  {t.microkernelDiagram.open} ↗
+                </a>
+              </figcaption>
+            </figure>
+          )}
+        </section>
+      ))}
 
       <section className="document-section">
         <h2>{t.founderTitle}</h2>
         <div className="founder-profile">
           <div>
             <h3>Rekka &quot;horizon&quot; IGUMI</h3>
-            <p>{t.founderRole}</p>
           </div>
           <div>
             <p>{t.founderDescription}</p>
@@ -60,6 +65,19 @@ export function AboutPage({ locale }: { locale: Locale }) {
             </div>
           </div>
         </div>
+      </section>
+
+      <section className="document-section section-divider" role="doc-bibliography" aria-labelledby="references-heading">
+        <h2 id="references-heading">{t.referencesTitle}</h2>
+        <ol className="reference-list">
+          {aboutReferences.map((reference) => (
+            <li key={reference.id} id={`ref-${reference.id}`}>
+              {reference.authors}.{" "}
+              <a href={reference.href} target="_blank" rel="noreferrer"><cite>{reference.title}</cite></a>.{" "}
+              <span>{reference.publication}</span>
+            </li>
+          ))}
+        </ol>
       </section>
     </main>
   );

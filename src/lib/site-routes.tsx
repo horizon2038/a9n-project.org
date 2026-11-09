@@ -38,11 +38,11 @@ const staticRoutes: readonly { page: StaticPage; segments: readonly string[] }[]
 ];
 
 function localizedPath(locale: Locale, segments: readonly string[]) {
-  return locale === "en" ? ["en", ...segments] : [...segments];
+  return locale === "ja" ? ["ja", ...segments] : [...segments];
 }
 
 export function getSiteStaticParams() {
-  const locales: Locale[] = ["ja", "en"];
+  const locales: Locale[] = ["en", "ja"];
 
   return locales.flatMap((locale) => {
     const staticParams = staticRoutes.map(({ segments }) => ({ path: localizedPath(locale, segments) }));
@@ -64,12 +64,12 @@ export function getSiteStaticParams() {
 }
 
 export function localeFromSitePath(path: string[] | undefined): Locale {
-  return path?.[0] === "en" ? "en" : "ja";
+  return path?.[0] === "ja" ? "ja" : "en";
 }
 
 function resolveRoute(path: string[] | undefined): ResolvedRoute {
   const locale = localeFromSitePath(path);
-  const segments = locale === "en" ? (path ?? []).slice(1) : (path ?? []);
+  const segments = locale === "ja" ? (path ?? []).slice(1) : (path ?? []);
   const staticRoute = staticRoutes.find(({ segments: candidate }) =>
     candidate.length === segments.length && candidate.every((segment, index) => segment === segments[index]),
   );

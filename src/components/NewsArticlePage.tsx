@@ -14,7 +14,7 @@ export async function NewsArticlePage({ locale, slug }: { locale: Locale; slug: 
   }
 
   return (
-    <main className="article-main">
+    <main id="main-content" tabIndex={-1} className="article-main">
       <Link className="back-link" href={localePath(locale, "/news")}>
         ← {t.news.allNews}
       </Link>
@@ -27,7 +27,7 @@ export async function NewsArticlePage({ locale, slug }: { locale: Locale; slug: 
             <ul className="tag-list" aria-label={t.common.tags}>
               {post.tags.map((tag) => (
                 <li key={tag}>
-                  <Link href={`${localePath(locale, "/news/tags")}/${encodeURIComponent(tag)}`}>#{tag}</Link>
+                  <Link href={localePath(locale, `/news/tags/${encodeURIComponent(tag)}`)}>#{tag}</Link>
                 </li>
               ))}
             </ul>

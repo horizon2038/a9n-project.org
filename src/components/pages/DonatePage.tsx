@@ -6,18 +6,14 @@ export function DonatePage({ locale }: { locale: Locale }) {
   const t = getTranslations(locale).donate;
 
   return (
-    <main className="page-main">
+    <main id="main-content" tabIndex={-1} className="page-main">
       <header className="page-header">
         <div>
-          <p className="page-section-name">Donate</p>
           <h1>{t.title}</h1>
-          <p>{t.introduction}</p>
         </div>
       </header>
 
       <section className="document-section donate-support">
-        <h2>{t.supportTitle}</h2>
-        <p>{t.supportDescription}</p>
         <a
           className="button-link github-link"
           href="https://github.com/sponsors/horizon2038"

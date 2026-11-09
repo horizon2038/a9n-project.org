@@ -71,7 +71,7 @@ export const projectManifest: readonly ProjectDefinition[] = [
   },
   {
     slug: "a9n-types",
-    name: "a9n_types",
+    name: "a9n-types",
     href: "https://github.com/horizon2038/a9n-types",
     related: ["a9n", "a9n-abi", "nun"],
   },

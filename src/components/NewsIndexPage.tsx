@@ -13,12 +13,10 @@ export function NewsIndexPage({ locale, page = 1 }: { locale: Locale; page?: num
   const posts = allPosts.slice((page - 1) * POSTS_PER_PAGE, page * POSTS_PER_PAGE);
 
   return (
-    <main className="page-main">
+    <main id="main-content" tabIndex={-1} className="page-main">
       <header className="page-header">
         <div>
-          <p className="page-section-name">News</p>
           <h1>{t.title}</h1>
-          <p>{t.introduction}</p>
         </div>
         <a className="plain-link" href={localePath(locale, "/feed.xml")}>
           RSS Feed
@@ -29,7 +27,7 @@ export function NewsIndexPage({ locale, page = 1 }: { locale: Locale; page?: num
         <nav className="tag-nav" aria-label={t.allTags}>
           <span>{t.tags}</span>
           {tags.map((tag) => (
-            <Link href={`${localePath(locale, "/news/tags")}/${encodeURIComponent(tag)}`} key={tag}>
+            <Link href={localePath(locale, `/news/tags/${encodeURIComponent(tag)}`)} key={tag}>
               #{tag}
             </Link>
           ))}

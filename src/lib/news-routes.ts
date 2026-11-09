@@ -9,7 +9,7 @@ export async function getArticleMetadata(locale: Locale, { params }: ArticlePara
   const { slug } = await params;
   const joined = slug.join("/");
   const post = await getPostData(locale, joined);
-  const canonical = `${localePath(locale, "/news")}/${joined}`;
+  const canonical = localePath(locale, `/news/${joined}`);
 
   return {
     title: post.title,
@@ -17,8 +17,9 @@ export async function getArticleMetadata(locale: Locale, { params }: ArticlePara
     alternates: {
       canonical,
       languages: {
-        "ja-JP": `/news/${joined}`,
-        "en-US": `/en/news/${joined}`,
+        "ja-JP": localePath("ja", `/news/${joined}`),
+        "en-US": localePath("en", `/news/${joined}`),
+        "x-default": localePath("en", `/news/${joined}`),
       },
       types: {
         "application/rss+xml": localePath(locale, "/feed.xml"),

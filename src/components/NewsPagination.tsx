@@ -15,7 +15,7 @@ export function NewsPagination({
 
   const base = localePath(locale, "/news");
   const t = getTranslations(locale).news;
-  const hrefFor = (page: number) => (page === 1 ? base : `${base}/page/${page}`);
+  const hrefFor = (page: number) => (page === 1 ? base : localePath(locale, `/news/page/${page}`));
 
   return (
     <nav className="pagination" aria-label={t.pages}>

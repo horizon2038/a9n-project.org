@@ -1,10 +1,12 @@
 import { projectContent } from "@/lib/project-content";
+import { projectDetails, type ProjectSection } from "@/lib/project-details";
 import {
   projectManifest,
   type ProjectDefinition,
   type ProjectSlug,
 } from "@/lib/project-manifest";
 import type { Locale } from "@/lib/site";
+import { projectRevisions, type ProjectRevision } from "@/lib/project-revisions";
 
 export type ProjectScreenshot = {
   id: string;
@@ -22,15 +24,16 @@ export type ProjectInfo = {
   core?: boolean;
   kind: string;
   description: string;
-  overview: readonly string[];
+  notes: readonly string[];
+  sections: readonly ProjectSection[];
   provides: readonly string[];
-  role: string;
   facts: readonly {
     label: string;
     value: string;
   }[];
   screenshots: readonly ProjectScreenshot[];
   related: readonly ProjectSlug[];
+  revision: ProjectRevision;
 };
 
 function localizeProject(definition: ProjectDefinition, locale: Locale): ProjectInfo {
@@ -67,7 +70,9 @@ function localizeProject(definition: ProjectDefinition, locale: Locale): Project
   return {
     ...definition,
     ...localizedContent,
+    sections: projectDetails[locale][definition.slug],
     screenshots,
+    revision: projectRevisions[definition.slug],
   };
 }
 

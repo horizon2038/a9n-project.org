@@ -12,7 +12,7 @@ export function getRootMetadata(locale: Locale): Metadata {
       template: "%s | A9N Project",
     },
     description: getTranslations(locale).rootDescription,
-    keywords: ["A9N", "microkernel", "micro-hypervisor", "capability", "operating system", "Rust"],
+    keywords: ["A9N", "Microkernel", "micro-hypervisor", "capability", "operating system", "Rust"],
     openGraph: {
       siteName: "A9N Project",
       type: "website",
@@ -40,6 +40,7 @@ export function LocaleDocument({
   return (
     <html lang={locale}>
       <body>
+        <a className="skip-link" href="#main-content">{getTranslations(locale).common.skipToContent}</a>
         <SiteHeader locale={locale} />
         {children}
         <SiteFooter locale={locale} />

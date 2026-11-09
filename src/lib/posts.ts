@@ -19,6 +19,12 @@ export const POSTS_PER_PAGE = 12;
 
 const postsDirectory = path.join(process.cwd(), "posts");
 
+function isValidPostSlug(slug: string): boolean {
+  return slug.split("/").every((segment) =>
+    /^[a-zA-Z0-9_-]+(?:\.[a-zA-Z0-9_-]+)*$/.test(segment)
+  );
+}
+
 export type PostMeta = {
   slug: string;
   title: string;
@@ -66,7 +72,7 @@ export function getSortedPostsData(locale: Locale): PostMeta[] {
 }
 
 export async function getPostData(locale: Locale, slug: string): Promise<PostData> {
-  if (!/^[a-zA-Z0-9_/-]+$/.test(slug)) {
+  if (!isValidPostSlug(slug)) {
     throw new Error("Invalid post slug");
   }
 

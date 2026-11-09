@@ -21,7 +21,7 @@ export function buildRss(locale: Locale): string {
   const items = posts
     .slice(0, 20)
     .map((post) => {
-      const postUrl = `${siteUrl}${newsPath}/${post.slug}`;
+      const postUrl = `${siteUrl}${localePath(locale, `/news/${post.slug}`)}`;
       return `<item>
   <title>${escapeXml(post.title)}</title>
   <link>${postUrl}</link>

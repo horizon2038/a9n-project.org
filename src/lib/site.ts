@@ -25,8 +25,10 @@ export function getNavigation(locale: Locale) {
 }
 
 export function localePath(locale: Locale, path = ""): string {
-  const normalized = path === "/" ? "" : path;
-  return locale === "en" ? `/en${normalized}` || "/en" : normalized || "/";
+  const normalized = path.replace(/^\/+|\/+$/g, "");
+  const prefix = locale === "ja" ? "/ja" : "";
+  if (!normalized) return `${prefix}/`;
+  return `${prefix}/${normalized}${normalized.endsWith(".xml") ? "" : "/"}`;
 }
 
 export function createPageMetadata(
@@ -46,6 +48,7 @@ export function createPageMetadata(
       languages: {
         "ja-JP": jaPath,
         "en-US": enPath,
+        "x-default": enPath,
       },
       types: {
         "application/rss+xml": localePath(locale, "/feed.xml"),

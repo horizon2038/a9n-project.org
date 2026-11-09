@@ -15,26 +15,29 @@ Production buildは`out/`へ出力されます．
 npm run lint
 npm run build
 npm run check:links
+npm run check:locales
 ```
 
 ## Languages
 
-- 日本語: `/`
-- English: `/en`
+- English（既定）: `/`
+- 日本語: `/ja/`
 
 About，Projects，Getting Started，Documents，Newsは両言語で提供します．
 
 表示構造は日英で共通です．Page Routeは`src/app/[[...path]]`へ統合し，Pathの先頭からLocaleを解決します．Componentに言語別の分岐や文章は置きません．
 
-翻訳Dataは用途別に次の2箇所へ集約します．
+翻訳Dataは用途別に次のファイルへ集約します．
 
 - 共通PageとUI: `src/lib/i18n.ts`
-- Project固有の文章: `src/lib/project-content.ts`
+- Projectの概要と基本情報: `src/lib/project-content.ts`
+- Projectの詳細本文と出典: `src/lib/project-details.ts`
 
-Project Dataは次の3層に分けています．
+Project Dataは次のファイルに分けています．
 
 - `src/lib/project-manifest.ts`: Slug，Repository，関連Project，Screenshot Fileと寸法
 - `src/lib/project-content.ts`: 日本語と英語の説明，Fact，ScreenshotのAltとCaption
+- `src/lib/project-details.ts`: 日英の詳細Section，目次用ID，参照元のFile Path
 - `src/lib/projects.ts`: Localeを指定して表示用Dataを組み立てるAPI
 
 Projects一覧と各Projectの詳細Pageは，`src/lib/projects.ts`が返す同一構造のDataから静的生成します．
@@ -61,5 +64,5 @@ Build時に次のContentを静的生成します．
 - News一覧と記事Page
 - タグ別一覧
 - Pagination
-- `/feed.xml`と`/en/feed.xml`
+- `/feed.xml`（English）と`/ja/feed.xml`（日本語）
 - sitemap.xml

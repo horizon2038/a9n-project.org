@@ -8,7 +8,7 @@ export function TagPage({ locale, tag }: { locale: Locale; tag: string }) {
   const t = getTranslations(locale).news;
 
   return (
-    <main className="page-main">
+    <main id="main-content" tabIndex={-1} className="page-main">
       <header className="page-header page-header-simple">
         <div>
           <p className="page-section-name">News</p>
